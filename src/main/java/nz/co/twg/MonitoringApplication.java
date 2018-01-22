@@ -29,7 +29,7 @@ public class MonitoringApplication {
         String yamlFileLocation = "src/main/resources/";
         String yamlFileName = "monitoringProperties.yaml";
 
-        
+
         try {
             String yamlData = readSnakeYAML(yamlFileLocation+yamlFileName).toString();
             System.out.println("after ToString"+ yamlData);

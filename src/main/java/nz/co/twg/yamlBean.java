@@ -1,6 +1,5 @@
 package nz.co.twg;
 
-import java.util.regex.*;
 
 public class yamlBean implements yamlDAO{
     private String folder;
@@ -39,9 +38,8 @@ public class yamlBean implements yamlDAO{
     }
 
     public void setToEmail(String toEmail){
-        this.recipientEmail = toEmail.replaceAll("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)", "");
-        //Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(toEmail);
-        //this.recipientEmail = toEmail;
+        int equalSign = toEmail.indexOf("=");
+        this.recipientEmail = toEmail.substring(equalSign + 1);
     }
 
     public String getFromEmail(){
@@ -49,7 +47,8 @@ public class yamlBean implements yamlDAO{
     }
 
     public void setFromEmail(String fromEmail){
-        this.senderEmail = fromEmail;
+        int equalSign = fromEmail.indexOf("=");
+        this.senderEmail = fromEmail.substring(equalSign + 1);
     }
 
     public String getEmailContent(){
@@ -57,10 +56,10 @@ public class yamlBean implements yamlDAO{
     }
 
     public void setEmailContent(String emailContent){
-        this.emailMessage = emailContent;
+        int equalSign = emailContent.indexOf("=");
+        this.emailMessage = emailContent.substring(equalSign + 1);
     }
 
     public yamlBean() {
     }
 }
-
