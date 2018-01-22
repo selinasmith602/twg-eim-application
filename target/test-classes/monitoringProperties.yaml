@@ -1,0 +1,7 @@
+---
+directory: "src/main/resources/"
+maxFiles: 5
+fileAge: 1000
+toEmail: "abc@domain.co.nz"
+fromEmail: "no-reply@domain.nz"
+emailContent: "Hi there please check the file..."
