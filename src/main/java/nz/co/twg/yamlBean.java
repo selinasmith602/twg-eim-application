@@ -1,7 +1,7 @@
 package nz.co.twg;
 
 
-public class yamlBean implements yamlDAO{
+public class yamlBean {
     private String folder;
     private String recipientEmail;
     private String senderEmail;
