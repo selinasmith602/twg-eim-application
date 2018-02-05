@@ -1,9 +1,7 @@
 package nz.co.twg;
 
-import nz.co.twg.DAOInterfaces.ActionInterface;
-import nz.co.twg.DAOInterfaces.ConditionInterface;
+
 import nz.co.twg.DAOInterfaces.DAOInt;
-import nz.co.twg.DAOInterfaces.NotificationInterface;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -11,24 +9,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.util.HashMap;
 import java.util.Map;
+import com.google.common.base.Splitter;
+
 
 import static nz.co.twg.MonitoringApplication.LOG;
 
-public class YAMLDAO implements DAOInt {
+public class YAMLDAO {
 
     public static Map<String, String> readSnakeYAML(String yamlFile, String condition) throws IOException {
         Yaml yamlObject = new Yaml();
         InputStream input = new FileInputStream(new File(yamlFile));
-        Map<String,String> conditionMap = new HashMap<String, String>();
+
         for (Object data : yamlObject.loadAll(input)){
             String[] value = data.toString().split("\\[");
             if (condition.equals(value[0].replaceAll("\\W",""))){
-                for (String val : value[1].split(",")) {
-                    String[] holder = val.split("=");
-                    conditionMap.put(holder[0].replaceAll("\\W",""),holder[1].replaceAll("\\[","").replaceAll("\\]","").replaceAll("\\}",""));
-                }
+                Map<String, String> conditionMap = Splitter.on(", ").withKeyValueSeparator("=").split(value[1].replaceAll("\\{","").replaceAll("\\}","").replaceAll("\\]",""));
                 return conditionMap;
             }
         }

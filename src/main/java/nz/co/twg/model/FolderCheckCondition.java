@@ -13,6 +13,16 @@ public class FolderCheckCondition implements Condition<List<File>> {
             public boolean shouldFire() {
                 return false;
             }
+
+            @Override
+            public String toMessage() {
+                return null;
+            }
         };
+    }
+
+    @Override
+    public String getId() {
+        return null;
     }
 }

@@ -1,6 +1,10 @@
 package nz.co.twg;
 
-import nz.co.twg.DAOInterfaces.DAOInt;
+import com.google.common.io.Files;
+import nz.co.twg.DAOInterfaces.Condition;
+import nz.co.twg.DAOInterfaces.Notification;
+import nz.co.twg.DAOInterfaces.createMap;
+import org.quartz.Job;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,21 +20,37 @@ import java.lang.*;
 
 @EnableAutoConfiguration
 @SpringBootApplication
-public class MonitoringApplication {
+public abstract class MonitoringApplication implements Job{
     public static final Logger LOG = LoggerFactory.getLogger(MonitoringApplication.class);
 
     public static void main( String[] args )
     {
         SpringApplication.run(MonitoringApplication.class, args);
+        Condition conditionInfo = new Condition();
+        Notification notificationInfo = new Notification();
 
-        DAOInt props = new YAMLDAO();
-        System.out.println(props.getFolderLocation("src/main/resources/monitoringProperties.yaml", "Condition1"));
-        System.out.println(props.getFileLimit("src/main/resources/monitoringProperties.yaml", "Condition2"));
-        System.out.println(props.getFileAge("src/main/resources/monitoringProperties.yaml", "Condition1"));
-        System.out.println(props.getToEmail("src/main/resources/monitoringProperties.yaml", "Condition1"));
-        System.out.println(props.getFromEmail("src/main/resources/monitoringProperties.yaml", "Condition1"));
-        System.out.println(props.getFromEmailPassword("src/main/resources/monitoringProperties.yaml", "Condition1"));
-        System.out.println(props.getEmailBody("src/main/resources/monitoringProperties.yaml", "Condition1"));
+        String fileLocation = "src/main/resources/monitoringProperties.yaml";
+        String notificationLoc = "src/main/resources/notification.yaml";
+        String conditionName = "Notification1";
+        String extension = Files.getFileExtension(fileLocation);
+        System.out.println(extension);
+
+        TLSEmail sendOutEmailNotification = new TLSEmail();
+        sendOutEmailNotification.emailNotification(notificationLoc, conditionName);
+        try{
+            CronTriggerClass schedulerPleaseFire = new CronTriggerClass();
+            schedulerPleaseFire.scheduler("0 4 15 * * ?");
+        } catch(Exception e){
+            System.out.println("not working");
+        }
+
+
+        try {
+            System.out.println("Call the condition method: " + conditionInfo.getCondition(createMap.readInfo("src/main/resources/monitoringProperties.yaml", "Condition1")));
+            System.out.println("Call the notification method: "+ notificationInfo.getNotification(createMap.readInfo("src/main/resources/notification.yaml", "Notification1")));
+        } catch(IOException e) {
+            System.out.println("failed to get condition");
+        }
     }
 
 

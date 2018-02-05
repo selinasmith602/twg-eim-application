@@ -2,17 +2,9 @@
 Condition1:
   - directory: "src/main/resources/"
   - maxFiles: 5
-  - maxAge: 1000
-  - toEmail: "abc@domain.co.nz"
-  - fromEmail: "no-reply@domain.nz"
-  - fromEmailPassword: "discoducks"
-  - emailContent: "Hi there please check the file..."
+  - maxAge: 10000
 ---
 Condition2:
   - directory: "src/test/resources/"
   - maxFiles: 2
   - maxAge: 5000
-  - toEmail: "abc@domain.co.nz"
-  - fromEmail: "no-reply@domain.nz"
-  - fromEmailPassword: "discoducks"
-  - emailContent: "Hi there please check the file..."

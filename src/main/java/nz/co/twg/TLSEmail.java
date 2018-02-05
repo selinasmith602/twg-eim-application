@@ -1,5 +1,8 @@
 package nz.co.twg;
 
+import nz.co.twg.DAOInterfaces.Notification;
+import nz.co.twg.DAOInterfaces.NotificationInterface;
+
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
@@ -19,27 +22,31 @@ public class TLSEmail {
      Use Authentication: Yes
      Port for TLS/STARTTLS: 587
      */
-    public static void main(String[] args) {
+    public void emailNotification(String fileLocation, String conditionName){
 
-        final String fromEmail = "devtestingtwg@gmail.com"; // Sender email must be Gmail
-        final String password = "discoduck"; // Password for Gmail account
-        final String toEmail = "wan.loke@thewarehouse.co.nz"; // recipient email
+        NotificationInterface retrieveInfo = new Notification();
+        final String fromEmail = retrieveInfo.getFromEmail(fileLocation, conditionName);
+        final String fromEmailPassword = retrieveInfo.getFromEmailPassword(fileLocation, conditionName);
+        System.out.println(fromEmail + fromEmailPassword);
+        final String toEmail = retrieveInfo.getToEmail(fileLocation, conditionName);
+        String subjectLine = retrieveInfo.getEmailSubject(fileLocation, conditionName);
+        String emailBodyContent = retrieveInfo.getEmailBody(fileLocation, conditionName);
 
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        Properties setUpProps = new Properties();
+        setUpProps.put("mail.smtp.host", "smtp.gmail.com");
+        setUpProps.put("mail.smtp.port", "587");
+        setUpProps.put("mail.smtp.auth", "true");
+        setUpProps.put("mail.smtp.starttls.enable", "true");
 
         //create Authenticator object to pass in Session.getInstance argument
         Authenticator auth = new Authenticator() {
             //override the getPasswordAuthentication method
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail, password);
+                return new PasswordAuthentication(fromEmail, fromEmailPassword);
             }
         };
-        Session session = Session.getInstance(props, auth);
-        sendEmail(session, toEmail,"Testing Email for Monitoring App", "Please check the file and order...");
+        Session session = Session.getInstance(setUpProps, auth);
+        sendEmail(session, toEmail,subjectLine, emailBodyContent);
 
     }
 
@@ -75,5 +82,6 @@ public class TLSEmail {
             e.printStackTrace();
         }
     }
+
 
 }
