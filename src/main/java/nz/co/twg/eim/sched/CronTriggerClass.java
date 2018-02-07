@@ -1,5 +1,4 @@
 package nz.co.twg.eim.sched;
-import nz.co.twg.eim.TestJob;
 import nz.co.twg.eim.dao.SchedulerInterface;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;

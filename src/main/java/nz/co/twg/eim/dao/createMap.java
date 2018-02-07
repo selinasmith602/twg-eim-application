@@ -1,7 +1,6 @@
 package nz.co.twg.eim.dao;
 
 import com.google.common.base.Splitter;
-import nz.co.twg.eim.readData;
 
 import java.io.IOException;
 import java.util.Map;
