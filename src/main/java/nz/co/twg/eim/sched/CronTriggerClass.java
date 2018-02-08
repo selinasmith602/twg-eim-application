@@ -10,8 +10,8 @@ import org.quartz.impl.StdSchedulerFactory;
 
 public class CronTriggerClass implements SchedulerInterface {
 
-    public void scheduler(String cronNum) throws Exception{
-        //cronNum ="0 24 14 * * ?";//"0/5 * * * * ?" ; //0 0/5 14,15 * * ?
+    public void scheduler(String cronNum) throws Exception {
+        /*//cronNum ="0 24 14 * * ?";//"0/5 * * * * ?" ; //0 0/5 14,15 * * ?
         String key = "Time";
 
         JobDetail job = JobBuilder.newJob(TestJob.class)
@@ -30,5 +30,6 @@ public class CronTriggerClass implements SchedulerInterface {
         scheduler.start();
         scheduler.scheduleJob(job, trigger);
 
+    }*/
     }
 }

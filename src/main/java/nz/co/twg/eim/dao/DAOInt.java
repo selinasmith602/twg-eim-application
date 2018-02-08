@@ -4,7 +4,7 @@ import nz.co.twg.eim.model.action.Action;
 import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.notification.Notification;
 
-public interface DAOInt extends ActionInterface, ConditionInterface, NotificationInterface {
+public interface DAOInt {
     Action getActionById(String id);
 
     Condition<?> getConditionById(String id);

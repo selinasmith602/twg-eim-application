@@ -3,6 +3,8 @@ package nz.co.twg.eim.dao.yaml;
 import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.condition.FileCondition;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ConditionDAO extends YamlDAO<Condition> {
@@ -13,8 +15,10 @@ public class ConditionDAO extends YamlDAO<Condition> {
 
     @Override
     protected Condition convert(Map<String, ?> m) {
-        if ("file".equals(m.get("type"))) {
-            return new FileCondition(m.get("id"), )
+        String id = m.keySet().iterator().next();
+        Map<String, ?> condValues = (Map<String, ?>)m.values().iterator().next();
+        if ("file".equals(condValues.get("type"))) {
+            return new FileCondition(id ,(Integer)condValues.get("maxAge"),(Integer)condValues.get("maxFiles"),(String)condValues.get("directory"));
         } else {
             return null;
         }

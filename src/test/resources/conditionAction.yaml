@@ -1,0 +1,8 @@
+---
+Action1
+    condition: condition1
+    notification: notification1
+---
+Action2
+    condition: condition2
+    notification: notification1

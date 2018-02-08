@@ -1,11 +1,9 @@
 package nz.co.twg.eim.model.action;
 
-import nz.co.twg.eim.model.action.Action;
-import nz.co.twg.eim.model.action.ActionExecutionException;
 import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.condition.ConditionResult;
 import nz.co.twg.eim.model.notification.Notification;
-import org.yaml.snakeyaml.Yaml;
+import nz.co.twg.eim.dao.yaml.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,33 +18,23 @@ public class StandardAction implements Action {
     }
     @Override
     public List<Condition<?>> getConditions() {
-        List<Condition<?>> yamlCondition = new ArrayList<>();
+        String locationYaml = "src/test/resources/monitoringProperties.yaml";
+        ConditionDAO d = new ConditionDAO(locationYaml);
+        d.list();
+
+        //--------------------------------------------------------------------------------
+       /* List<Condition<?>> yamlCondition = new ArrayList<>();
        try {
             String yamlData = readSnakeYAML("src/main/resources/monitoringProperties.yaml").toString();
             System.out.println("after ToString" + yamlData);
             String[] yamlSplit = yamlData.replaceAll("\\{", "").replaceAll("\\}", "").split(",");
-           /* for (int i = 0; i < yamlSplit.length; i++){
-                yamlCondition.add(new Condition(yamlSplit[i]));
-            }*/
             System.out.println("print " + yamlSplit[0]);
         } catch (IOException exception) {
             System.out.println("IO Exception thrown");
-        }
-        return yamlCondition;
+        }*/
+        return null;
     }
 
-    private static Object readSnakeYAML(String yamlFile) throws IOException {
-        Yaml yamlObject = new Yaml();
-        InputStream input = new FileInputStream(new File(yamlFile));
-        Iterable<Object> yam = yamlObject.loadAll(input);
-        for (Object data : yam){
-            System.out.println(data);
-
-            //System.out.println(data.getClass());
-            return data;
-        }
-        return yam;
-    }
     @Override
     public List<Notification> getNotifications() {
         return null;

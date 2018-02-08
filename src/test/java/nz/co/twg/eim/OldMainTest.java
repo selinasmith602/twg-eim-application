@@ -2,9 +2,6 @@ package nz.co.twg.eim;
 
 import com.google.common.io.Files;
 import junit.framework.*;
-import nz.co.twg.eim.dao.Condition;
-import nz.co.twg.eim.dao.Notification;
-import nz.co.twg.eim.dao.createMap;
 import nz.co.twg.eim.sched.CronTriggerClass;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
@@ -15,10 +12,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.List;
 
 public class OldMainTest extends TestCase{
-
+/*
     public String testGetDirectory(){
         /*Map<String,String> propertiesMap;
         try {
@@ -26,7 +22,7 @@ public class OldMainTest extends TestCase{
             assertEquals(propertiesMap.get("directory"),"src/");
         } catch(IOException e){
             System.out.println("failed to get YAML file");
-        }*/
+        }
         return null;
     }
 
@@ -100,16 +96,7 @@ public class OldMainTest extends TestCase{
             }
         }
         return ("Condition doesn't exist");
-    }
-
-    public static List<String> readYaml(String path) throws IOException {
-        Yaml yamlObject = new Yaml();
-        InputStream input = new FileInputStream(new File(path));
-        for (Object data : yamlObject.loadAll(input)) {
-
-            String value = data.toString().replaceAll("\\=\\[", ": ").replaceAll("\\{", "").replaceAll("\\}", "").replaceAll("\\]", "");
-        }
-    }
+    }*/
 
 
 }
