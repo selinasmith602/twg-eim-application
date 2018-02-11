@@ -28,4 +28,5 @@ public class FileCondition implements Condition<List<File>> {
     public String getId() {
         return id;
     }
+
 }

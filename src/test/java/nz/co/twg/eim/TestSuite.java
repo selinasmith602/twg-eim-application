@@ -10,14 +10,16 @@ import java.util.Collection;
 public class TestSuite {
 
     @Test
-    public void ListConditions(){
+    public void ListConditions() {
         ConditionDAO d = new ConditionDAO("src/test/resources/monitoringProperties.yaml");
-        Collection val = d.list();
+        System.out.println(d.get("Condition1").getId());
     }
 
     @Test
     public void ListNotifications(){
         NotificationDAO d = new NotificationDAO("src/test/resources/notification.yaml");
-        Collection val = d.list();
+        System.out.println(d.get("Notification1").getId());
+
     }
+
 }

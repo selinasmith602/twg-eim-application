@@ -13,14 +13,30 @@ import java.io.*;
 
 public class StandardAction implements Action {
 
+    private String id;
+    private String condition;
+    private String notification;
+    private String cronConfig;
+
     public String getId() {
-        return null;
+        return id;
     }
+
+    public StandardAction(String id, String condition, String notification, String cronConfig) {
+        this.id = id;
+        this.condition = condition;
+        this.notification = notification;
+        this.cronConfig = cronConfig;
+    }
+
     @Override
     public List<Condition<?>> getConditions() {
         String locationYaml = "src/test/resources/monitoringProperties.yaml";
         ConditionDAO d = new ConditionDAO(locationYaml);
-        d.list();
+        return (List)d.list();
+
+
+
 
         //--------------------------------------------------------------------------------
        /* List<Condition<?>> yamlCondition = new ArrayList<>();
@@ -32,12 +48,14 @@ public class StandardAction implements Action {
         } catch (IOException exception) {
             System.out.println("IO Exception thrown");
         }*/
-        return null;
+
     }
 
     @Override
     public List<Notification> getNotifications() {
-        return null;
+        String locationYaml = "src/test/resources/monitoringProperties.yaml";
+        NotificationDAO d = new NotificationDAO(locationYaml);
+        return (List)d.list();
     }
 
     @Override

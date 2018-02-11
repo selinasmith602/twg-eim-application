@@ -29,4 +29,5 @@ public class FolderCheckCondition implements Condition<List<File>> {
     public String getId() {
         return null;
     }
+
 }

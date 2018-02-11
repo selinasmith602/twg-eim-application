@@ -2,7 +2,9 @@
 Action1
     condition: condition1
     notification: notification1
+    schedule: 0 0/5 * * * ?
 ---
 Action2
     condition: condition2
     notification: notification1
+    schedule: 0 2/5 * * * ?
