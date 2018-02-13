@@ -18,10 +18,6 @@ public class ConditionDAO extends YamlDAO<Condition> {
         String id = m.keySet().iterator().next();
         Map<String, ?> condValues = (Map<String, ?>)m.values().iterator().next();
         if ("file".equals(condValues.get("type"))) {
-            FileCondition f = new FileCondition("123",5,1222,"dir");
-
-
-
             return new FileCondition(id ,(Integer)condValues.get("maxAge"),(Integer)condValues.get("maxFiles"),(String)condValues.get("directory"));
         } else {
             return null;
