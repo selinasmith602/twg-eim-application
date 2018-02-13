@@ -2,15 +2,13 @@
 Notification1:
   type: "email"
   toEmail: "wan.loke@thewarehouse.co.nz"
-  fromEmail: "devtestingtwg@gmail.com"
-  fromEmailPassword: "discoduck"
+  fromEmail: "DONOTREPLY@thewarehouse.co.nz"
   emailSubject: "Testing Email for Monitoring App"
-  emailContent: "Hi there please check the file..."
+  emailBody: "Hi there please check the file..."
 ---
 Notification2:
   type: "email"
   toEmail: "abc@domain.co.nz"
-  fromEmail: "no-reply@domain.nz"
-  fromEmailPassword: "discoduck"
+  fromEmail: "DONOTREPLY@thewarehouse.co.nz"
   emailSubject: "Testing Email for Monitoring App"
-  emailContent: "Hi there please check the file..."
+  emailBody: "Hi there please check the file..."
