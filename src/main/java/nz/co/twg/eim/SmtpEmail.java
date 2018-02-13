@@ -15,16 +15,16 @@ public class SmtpEmail {
     private static String emailBodyContent = "Message sent!";
     private static String smtpHostServer = "smtp.thewarehousegroup.net";
 
-    public static void simpleEmail() {
+    public static boolean simpleEmail() {
         Properties props = System.getProperties();
         props.put("mail.smtp.host", smtpHostServer);
         Session session = Session.getInstance(props, null);
-        SmtpEmail.sendEmail(session, userEmail ,subjectLine, emailBodyContent);
+        SmtpEmail.sendEmail(session);
+        return true;
     }
 
-    public static void sendEmail(Session session, String userEmail, String subject, String body){
-        try
-        {
+    public static void sendEmail(Session session) {
+        try {
             MimeMessage msg = new MimeMessage(session);
             //set message headers
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
@@ -33,16 +33,17 @@ public class SmtpEmail {
 
             msg.setFrom(new InternetAddress(senderEmail, "DoNotReply-TWG"));
             msg.setReplyTo(InternetAddress.parse(senderEmail, false));
-            msg.setSubject(subject, "UTF-8");
-            msg.setText(body, "UTF-8");
+            msg.setSubject(subjectLine, "UTF-8");
+            msg.setText(emailBodyContent, "UTF-8");
             msg.setSentDate(new Date());
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail, false));
             System.out.println("Message is ready");
             Transport.send(msg);
 
-            System.out.println("Email Sent Successfully!!");
-        }
-        catch (Exception e) {
+            MonitoringApplication.LOG.info("Email Sent Successfully!!");
+
+        } catch (Exception e) {
+            MonitoringApplication.LOG.info("Email failed to send.");
             e.printStackTrace();
         }
     }
