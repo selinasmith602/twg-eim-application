@@ -37,7 +37,7 @@ public class OldMainTest extends TestCase{
         String extension = Files.getFileExtension(fileLocation);
         System.out.println(extension);
 
-        TLSEmail sendOutEmailNotification = new TLSEmail();
+        SmtpEmail sendOutEmailNotification = new SmtpEmail();
         sendOutEmailNotification.emailNotification(notificationLoc, conditionName);
         try{
             CronTriggerClass schedulerPleaseFire = new CronTriggerClass();

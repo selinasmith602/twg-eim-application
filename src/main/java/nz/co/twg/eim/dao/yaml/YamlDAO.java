@@ -2,7 +2,7 @@ package nz.co.twg.eim.dao.yaml;
 
 import nz.co.twg.eim.dao.DAO;
 import nz.co.twg.eim.model.EimObject;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import nz.co.twg.eim.model.condition.Condition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
@@ -13,8 +13,6 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 
 abstract class  YamlDAO<T extends EimObject> implements DAO<T> {
     public static final Logger LOG = LoggerFactory.getLogger(YamlDAO.class);
@@ -35,7 +33,7 @@ abstract class  YamlDAO<T extends EimObject> implements DAO<T> {
                 InputStream input = new FileInputStream(new File(yamlFile));
                 for (Object data : yamlObject.loadAll(input)) {
                     T convert = convert((Map<String, ?>) data);
-                    myList.put(convert.getId(),convert);
+                    myList.put(convert.getId(), convert);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
