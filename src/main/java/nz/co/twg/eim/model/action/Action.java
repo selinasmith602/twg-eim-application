@@ -11,7 +11,5 @@ public interface Action extends EimObject {
 
     List<Notification> getNotifications();
 
-    List<String> getCronConfigs();
-
     void execute() throws ActionExecutionException;
 }

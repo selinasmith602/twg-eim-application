@@ -5,7 +5,7 @@ Condition1:
   maxFiles: 5
   maxAge: 10000
 ---
-Condition2:
+Condition1:
   type: "file"
   directory: "src/test/resources/"
   maxFiles: 2

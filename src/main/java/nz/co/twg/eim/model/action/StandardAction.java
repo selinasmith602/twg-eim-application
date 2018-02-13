@@ -34,21 +34,6 @@ public class StandardAction implements Action {
         String locationYaml = "src/test/resources/monitoringProperties.yaml";
         ConditionDAO d = new ConditionDAO(locationYaml);
         return (List)d.list();
-
-
-
-
-        //--------------------------------------------------------------------------------
-       /* List<Condition<?>> yamlCondition = new ArrayList<>();
-       try {
-            String yamlData = readSnakeYAML("src/main/resources/monitoringProperties.yaml").toString();
-            System.out.println("after ToString" + yamlData);
-            String[] yamlSplit = yamlData.replaceAll("\\{", "").replaceAll("\\}", "").split(",");
-            System.out.println("print " + yamlSplit[0]);
-        } catch (IOException exception) {
-            System.out.println("IO Exception thrown");
-        }*/
-
     }
 
     @Override
@@ -58,12 +43,18 @@ public class StandardAction implements Action {
         return (List)d.list();
     }
 
-    @Override
-    public List<String> getCronConfigs() {
-        return null;
-    }
-
     public void execute() throws ActionExecutionException {
+
+
+
+
+
+
+
+
+
+
+        /*
         Stream<Condition<?>> s = getConditions().stream();
 
         Stream<? extends ConditionResult<?>> results = s.map(c -> c.check(this));
@@ -77,6 +68,6 @@ public class StandardAction implements Action {
                 throw new ActionExecutionException("Could not fire action " + getId(), exceptions.collect(Collectors.toList()));
             }
         }
-
+*/
     }
 }

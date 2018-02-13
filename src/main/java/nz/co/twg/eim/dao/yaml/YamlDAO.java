@@ -1,5 +1,6 @@
 package nz.co.twg.eim.dao.yaml;
 
+import nz.co.twg.eim.MonitoringApplication;
 import nz.co.twg.eim.dao.DAO;
 import nz.co.twg.eim.model.EimObject;
 import nz.co.twg.eim.model.condition.Condition;
@@ -33,7 +34,13 @@ abstract class  YamlDAO<T extends EimObject> implements DAO<T> {
                 InputStream input = new FileInputStream(new File(yamlFile));
                 for (Object data : yamlObject.loadAll(input)) {
                     T convert = convert((Map<String, ?>) data);
-                    myList.put(convert.getId(), convert);
+                    if (!myList.containsKey(convert.getId())){
+                        System.out.println(convert.getId() + "has been added");
+                        myList.put(convert.getId(), convert);
+                    } else {
+                        MonitoringApplication.LOG.error(convert.getId() + " already exists within the list of conditions");
+                    }
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
