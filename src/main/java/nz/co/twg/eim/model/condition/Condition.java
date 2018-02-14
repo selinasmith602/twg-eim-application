@@ -6,4 +6,9 @@ import nz.co.twg.eim.model.action.Action;
 public interface Condition<T> extends EimObject {
     ConditionResult<T> check(Action checkingAction);
 
+    String getDirectory();
+
+    int getMaxAge();
+
+    int getFileCount();
 }

@@ -7,7 +7,7 @@ import nz.co.twg.eim.model.condition.ConditionResult;
 import java.io.File;
 import java.util.List;
 
-public class FolderCheckCondition implements Condition<List<File>> {
+public abstract class FolderCheckCondition implements Condition<List<File>> {
     public ConditionResult<List<File>> check(Action checkingAction) {
         return new ConditionResult<List<File>>() {
             public List<File> getPayload() {

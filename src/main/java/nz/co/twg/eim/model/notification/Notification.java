@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface Notification extends EimObject {
     NotificationResult doNotify(List<ConditionResult<?>> conditionResults);
+
+    String getToEmail();
+    String getSubject();
+    String getEmailBody();
 }

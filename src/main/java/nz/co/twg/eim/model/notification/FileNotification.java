@@ -27,4 +27,16 @@ public class FileNotification implements Notification {
     public String getId() {
         return id;
     }
+
+    public String getToEmail(){
+        return toEmail;
+    }
+
+    public String getSubject(){
+        return subject;
+    }
+
+    public String getEmailBody(){
+        return emailBody;
+    }
 }

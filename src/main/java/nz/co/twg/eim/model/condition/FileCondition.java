@@ -12,11 +12,11 @@ public class FileCondition implements Condition<List<File>> {
     private final int fileCount;
     private final String directory;
 
-    public FileCondition(String id, int maxAge, int fileCount, String directory) {
+    public FileCondition(String id, String directory, int maxAge, int fileCount) {
         this.id = id;
+        this.directory = directory;
         this.maxAge = maxAge;
         this.fileCount = fileCount;
-        this.directory = directory;
     }
 
     @Override
@@ -28,5 +28,14 @@ public class FileCondition implements Condition<List<File>> {
     public String getId() {
         return id;
     }
+
+    @Override
+    public String getDirectory(){ return directory; }
+
+    @Override
+    public int getMaxAge(){ return maxAge; }
+
+    @Override
+    public int getFileCount(){ return fileCount; }
 
 }

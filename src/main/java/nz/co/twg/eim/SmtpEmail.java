@@ -1,5 +1,7 @@
 package nz.co.twg.eim;
 
+import nz.co.twg.eim.dao.yaml.NotificationDAO;
+
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
@@ -9,6 +11,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SmtpEmail {
+    String notificationFile = "src/test/resources/notification.yaml";
+    NotificationDAO d = new NotificationDAO(notificationFile);
     private static String senderEmail = "DONOTREPLY@thewarehouse.co.nz";
     private static String userEmail = "wan.loke@thewarehouse.co.nz";
     private static String subjectLine = "Testing testing";

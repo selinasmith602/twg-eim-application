@@ -20,7 +20,7 @@ public class ConditionDAO extends YamlDAO<Condition> {
         Map<String, ?> condValues = (Map<String, ?>)m.values().iterator().next();
         try {
             if ("file".equals(condValues.get("type"))) {
-                return new FileCondition(id ,(Integer)condValues.get("maxAge"),(Integer)condValues.get("maxFiles"),(String)condValues.get("directory"));
+                return new FileCondition(id ,(String)condValues.get("directory"), (Integer)condValues.get("maxAge"),(Integer)condValues.get("maxFiles"));
             }
         } catch (Exception e){
             MonitoringApplication.LOG.error(id + " has invalid configuration");
