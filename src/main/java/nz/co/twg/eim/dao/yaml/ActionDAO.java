@@ -17,9 +17,7 @@ public class ActionDAO extends YamlDAO<Action> {
         String id = m.keySet().iterator().next();
         Map<String, ?> condValues = (Map<String, ?>)m.values().iterator().next();
         try {
-            if ("file".equals(condValues.get("type"))) {
-                return new StandardAction(id ,(String)condValues.get("condition"),(String)condValues.get("notification"),(String)condValues.get("schedule"));
-            }
+            return new StandardAction(id ,(String)condValues.get("condition"),(String)condValues.get("notification"),(String)condValues.get("schedule"));
         } catch (Exception e) {
             MonitoringApplication.LOG.error(id + " has invalid configuration");
         }

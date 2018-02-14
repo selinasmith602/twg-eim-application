@@ -1,0 +1,12 @@
+---
+Condition1:
+  type: "file"
+  directory: "src/main/resources/"
+  maxFiles: 5
+  maxAge: 10000
+---
+Condition1:
+  type: "file"
+  directory: "src/test/resources/"
+  maxFiles: 2
+  maxAge: 5000

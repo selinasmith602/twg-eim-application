@@ -36,7 +36,7 @@ abstract class  YamlDAO<T extends EimObject> implements DAO<T> {
                     if (!myList.containsKey(convert.getId())){
                         myList.put(convert.getId(), convert);
                     } else {
-                        MonitoringApplication.LOG.error(convert.getId() + " already exists within the list of conditions");
+                        MonitoringApplication.LOG.error(convert.getId() + " already exists");
                     }
                 }
             } catch (Exception e) {
