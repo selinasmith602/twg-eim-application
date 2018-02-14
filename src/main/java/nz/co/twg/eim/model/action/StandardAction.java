@@ -1,11 +1,13 @@
 package nz.co.twg.eim.model.action;
 
+import nz.co.twg.eim.MonitoringApplication;
 import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.condition.ConditionResult;
 import nz.co.twg.eim.model.notification.Notification;
 import nz.co.twg.eim.dao.yaml.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,23 +33,22 @@ public class StandardAction implements Action {
 
     @Override
     public List<Condition<?>> getConditions() {
-        String locationYaml = "src/test/resources/monitoringProperties.yaml";
+        String locationYaml = "src/test/resources/condition.yaml";
         ConditionDAO d = new ConditionDAO(locationYaml);
         return (List)d.list();
     }
 
     @Override
     public List<Notification> getNotifications() {
-        String locationYaml = "src/test/resources/monitoringProperties.yaml";
+        String locationYaml = "src/test/resources/condition.yaml";
         NotificationDAO d = new NotificationDAO(locationYaml);
         return (List)d.list();
+
     }
 
     public void execute() throws ActionExecutionException {
-
-
-
-
+        MonitoringApplication.LOG.info("executing " + getId());
+        getNotifications();
 
 
 

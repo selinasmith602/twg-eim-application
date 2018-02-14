@@ -10,22 +10,33 @@ import java.util.Collection;
 public class TestSuite {
 
     @Test
-    public void ListConditions() {
-        ConditionDAO d = new ConditionDAO("src/test/resources/monitoringProperties.yaml");
-        System.out.println(d.get("Condition1").getId());
+    public void ValidateConditionRead() {
+        String testCondition = "Condition6";
+        ConditionDAO d = new ConditionDAO("src/test/resources/condition.yaml");
+        try {
+            if (!d.get(testCondition).getId().isEmpty()){
+                System.out.println(d.get(testCondition).getId() + " has been found in the source conditions");
+            }
+        } catch (Exception e) {
+            MonitoringApplication.LOG.error("Condition " + testCondition + " couldnt be found in the source conditions");
+        }
     }
 
     @Test
     public void ListNotifications(){
         NotificationDAO d = new NotificationDAO("src/test/resources/notification.yaml");
-        System.out.println(d.get("Notification1").getId());
-
     }
 
     @Test
     public void ListActions(){
         ActionDAO d = new ActionDAO("src/test/resources/conditionAction.yaml");
         System.out.println(d.get("Action1").getId());
+        try {
+            d.get("Action1").execute();
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+
 
     }
 

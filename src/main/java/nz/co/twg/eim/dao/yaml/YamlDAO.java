@@ -30,17 +30,14 @@ abstract class  YamlDAO<T extends EimObject> implements DAO<T> {
             myList = new LinkedHashMap<>();
             Yaml yamlObject = new Yaml();
             try {
-
                 InputStream input = new FileInputStream(new File(yamlFile));
                 for (Object data : yamlObject.loadAll(input)) {
                     T convert = convert((Map<String, ?>) data);
                     if (!myList.containsKey(convert.getId())){
-                        System.out.println(convert.getId() + "has been added");
                         myList.put(convert.getId(), convert);
                     } else {
-                        MonitoringApplication.LOG.error(convert.getId() + " already exists within the list of conditions");
+                        MonitoringApplication.LOG.error(convert.getId() + " already exists");
                     }
-
                 }
             } catch (Exception e) {
                 e.printStackTrace();
