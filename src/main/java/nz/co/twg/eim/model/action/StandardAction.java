@@ -3,6 +3,7 @@ package nz.co.twg.eim.model.action;
 import nz.co.twg.eim.MonitoringApplication;
 import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.condition.ConditionResult;
+import nz.co.twg.eim.model.condition.FileCondition;
 import nz.co.twg.eim.model.notification.Notification;
 import nz.co.twg.eim.dao.yaml.*;
 
@@ -16,15 +17,15 @@ import java.io.*;
 public class StandardAction implements Action {
 
     private String id;
-    private String condition;
-    private String notification;
+    private List<Condition> condition;
+    private List<Notification> notification;
     private String cronConfig;
 
     public String getId() {
         return id;
     }
 
-    public StandardAction(String id, String condition, String notification, String cronConfig) {
+    public StandardAction(String id, List<Condition> condition, List<Notification> notification, String cronConfig) {
         this.id = id;
         this.condition = condition;
         this.notification = notification;
@@ -32,23 +33,25 @@ public class StandardAction implements Action {
     }
 
     @Override
-    public List<Condition<?>> getConditions() {
-        String locationYaml = "src/test/resources/condition.yaml";
-        ConditionDAO d = new ConditionDAO(locationYaml);
-        return (List)d.list();
+    public List<Condition> getConditions() {
+        return condition;
     }
 
     @Override
     public List<Notification> getNotifications() {
-        String locationYaml = "src/test/resources/condition.yaml";
-        NotificationDAO d = new NotificationDAO(locationYaml);
-        return (List)d.list();
-
+        return notification;
     }
 
     public void execute() throws ActionExecutionException {
-        MonitoringApplication.LOG.info("executing " + getId());
-        getNotifications();
+        MonitoringApplication.LOG.info("executing ");
+        System.out.println(getConditions());
+        for (Condition f:getConditions()) {
+            System.out.println(getConditions().iterator().next().getId());
+        };
+        System.out.println(getConditions().iterator().next().getMaxAge());
+
+        System.out.println("retrieved");
+
 
 
 

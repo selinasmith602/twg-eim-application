@@ -1,17 +1,21 @@
 package nz.co.twg.eim;
 
+import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.notification.FileNotification;
 import org.junit.Test;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.boot.test.context.SpringBootTest;
 import nz.co.twg.eim.dao.yaml.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @SpringBootTest
 public class TestSuite {
-    String conditionFile = "src/test/resources/monitoringProperties.yaml";
+    String conditionFile = "src/test/resources/condition.yaml";
     String notificationFile = "src/test/resources/notification.yaml";
     String actionFile = "src/test/resources/conditionAction.yaml";
 
@@ -22,16 +26,19 @@ public class TestSuite {
     }
 
     @Test
-    public void ListNotifications(){
+    public void ListNotifications() {
         NotificationDAO d = new NotificationDAO(notificationFile);
         System.out.println(d.get("Notification1").getId());
-
     }
 
     @Test
     public void ListActions(){
         ActionDAO d = new ActionDAO(actionFile);
-        System.out.println(d.get("Action1").getId());
+        try {
+            d.get("Action1").execute();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
