@@ -27,7 +27,7 @@ public class ActionDAO extends YamlDAO<Action> {
         Map<String, ?> condValues = (Map<String, ?>)m.values().iterator().next();
         List<Condition> listCon = new ArrayList<>();
         List<Notification> listNot = new ArrayList<>();
-        System.out.println(condValues.get("condition"));
+        //System.out.println(condValues.get("condition"));
         for (String s:condValues.get("condition").toString().split(",")) {
             String c = s.replaceAll("\\[","").replaceAll("\\]","").replaceAll(" ","");
             ConditionDAO d = new ConditionDAO("src/test/resources/condition.yaml");

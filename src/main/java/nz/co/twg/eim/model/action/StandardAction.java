@@ -55,9 +55,6 @@ public class StandardAction implements Action {
 
 
 
-
-
-
         /*
         Stream<Condition<?>> s = getConditions().stream();
 

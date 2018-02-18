@@ -39,7 +39,6 @@ public class TestSuite {
         } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     @Test
@@ -124,5 +123,20 @@ public class TestSuite {
         } catch (NullPointerException e) {
             MonitoringApplication.LOG.error("Action " + testAction + " couldnt be found in the source action.");
         }
+    }
+
+    @Test
+    public void ValidateNumberOfCondAction() {
+        ActionDAO d = new ActionDAO(actionFile);
+        String testAction = "Action1";
+        assertEquals(d.get(testAction).getConditions().isEmpty(), false);
+
+    }
+
+    @Test
+    public void ValidateNumberOfNotiAction() {
+        ActionDAO d = new ActionDAO(actionFile);
+        String testAction = "Action1";
+        assertEquals(d.get(testAction).getNotifications().isEmpty(), false);
     }
 }
