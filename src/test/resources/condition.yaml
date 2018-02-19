@@ -3,7 +3,7 @@ Condition1:
   type: "file"
   directory: "src/main/resources/"
   maxFiles: 5
-  maxAge: 10000
+  maxAge: 1000
 ---
 Condition2:
   type: "file"

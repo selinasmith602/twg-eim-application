@@ -34,7 +34,6 @@ abstract class  YamlDAO<T extends EimObject> implements DAO<T> {
                 for (Object data : yamlObject.loadAll(input)) {
                     T convert = convert((Map<String, ?>) data);
                     if (!myList.containsKey(convert.getId())){
-
                         myList.put(convert.getId(), convert);
                     } else {
                         MonitoringApplication.LOG.error(convert.getId() + " already exists");

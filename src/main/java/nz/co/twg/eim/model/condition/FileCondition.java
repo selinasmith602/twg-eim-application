@@ -1,18 +1,18 @@
 package nz.co.twg.eim.model.condition;
 
 import nz.co.twg.eim.model.action.Action;
-
+import java.util.Optional;
 import java.io.File;
 import java.util.List;
 
 public class FileCondition implements Condition<List<File>> {
 
     private final String id;
-    private final int maxAge;
-    private final int fileCount;
+    private final Optional<Integer> maxAge;
+    private final Optional<Integer> fileCount;
     private final String directory;
 
-    public FileCondition(String id, String directory, int maxAge, int fileCount) {
+    public FileCondition(String id, String directory, Optional<Integer> maxAge, Optional<Integer> fileCount) {
         this.id = id;
         this.directory = directory;
         this.maxAge = maxAge;
@@ -33,9 +33,9 @@ public class FileCondition implements Condition<List<File>> {
     public String getDirectory(){ return directory; }
 
     @Override
-    public int getMaxAge(){ return maxAge; }
+    public Optional<Integer> getMaxAge(){ return maxAge; }
 
     @Override
-    public int getFileCount(){ return fileCount; }
+    public Optional<Integer> getFileCount(){ return fileCount; }
 
 }
