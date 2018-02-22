@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+
 @EnableAutoConfiguration
 public class ActionDAO extends YamlDAO<Action> {
 
@@ -40,7 +40,7 @@ public class ActionDAO extends YamlDAO<Action> {
         }
 
         try {
-            return new StandardAction(id ,listCon,listNot,(String)condValues.get("schedule"));
+            return new StandardAction(id ,null,listNot,(String)condValues.get("schedule"));
         } catch (Exception e) {
             e.printStackTrace();
             MonitoringApplication.LOG.error(id + " has invalid configuration");
