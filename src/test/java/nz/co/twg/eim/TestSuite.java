@@ -1,32 +1,81 @@
 package nz.co.twg.eim;
 
+import com.google.common.io.Files;
+import nz.co.twg.eim.model.condition.Condition;
+import nz.co.twg.eim.model.notification.FileNotification;
+import org.apache.tomcat.jni.Time;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.boot.test.context.SpringBootTest;
 import nz.co.twg.eim.dao.yaml.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 public class TestSuite {
     String conditionFile = "src/test/resources/condition.yaml";
     String notificationFile = "src/test/resources/notification.yaml";
     String actionFile = "src/test/resources/conditionAction.yaml";
+    static File tempDir = Files.createTempDir();
+
+
+    @BeforeClass
+    public static void createTempFile () throws IOException{
+        tempDir.mkdir();
+        String dir = tempDir.getAbsolutePath();
+        File old1 = new File(dir+"\\old1.txt");
+        File old2 = new File(dir+"\\old2.txt");
+        File recent1 = new File(dir+"\\recent1.txt");
+        File recent2 = new File(dir+"\\recent2.txt");
+        File current = new File(dir+"\\current.txt");
+        old1.createNewFile();
+        old2.createNewFile();
+        recent1.createNewFile();
+        recent2.createNewFile();
+        current.createNewFile();
+
+
+        old1.setLastModified((System.currentTimeMillis()-10000000));
+        old2.setLastModified(System.currentTimeMillis()-90000000);
+        recent1.setLastModified(System.currentTimeMillis()-300000);
+        recent2.setLastModified(System.currentTimeMillis()-300000);
+
+    }
+
     @Test
-    public void ListConditions() throws FileNotFoundException {
+    public void fileDate() throws IOException {
+        File directory = new File(tempDir.getAbsolutePath());
+        File[] directory_contents = directory.listFiles();
+        for (File f: directory_contents) {
+            Date date = new Date(f.lastModified());
+            System.out.println(date);
+        }
+    }
+
+
+    @Test
+    public void ListConditions() {
         ConditionDAO d = new ConditionDAO(conditionFile);
         System.out.println(d.get("Condition1").getId());
     }
 
     @Test
-    public void ListNotifications() throws FileNotFoundException {
+    public void ListNotifications() {
         NotificationDAO d = new NotificationDAO(notificationFile);
         System.out.println(d.get("Notification1").getId());
     }
 
     @Test
-    public void ListActions() throws FileNotFoundException {
+    public void ListActions(){
         ActionDAO d = new ActionDAO(actionFile);
         try {
             d.get("Action1").execute();
@@ -122,7 +171,7 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateNumberOfCondAction() throws FileNotFoundException {
+    public void ValidateNumberOfCondAction() {
         ActionDAO d = new ActionDAO(actionFile);
         String testAction = "Action1";
         assertEquals(d.get(testAction).getConditions().isEmpty(), false);
@@ -130,9 +179,17 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateNumberOfNotiAction() throws FileNotFoundException {
+    public void ValidateNumberOfNotiAction() {
         ActionDAO d = new ActionDAO(actionFile);
         String testAction = "Action1";
         assertEquals(d.get(testAction).getNotifications().isEmpty(), false);
     }
+
+
+
+    @AfterClass
+    public static void cleanupTest(){
+        tempDir.delete();
+    }
+
 }
