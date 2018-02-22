@@ -1,9 +1,10 @@
 package nz.co.twg.eim.model.condition;
 
 import nz.co.twg.eim.model.action.Action;
-import java.util.Optional;
+
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 public class FileCondition implements Condition<List<File>> {
 

@@ -2,13 +2,13 @@ package nz.co.twg.eim;
 
 import nz.co.twg.eim.dao.yaml.NotificationDAO;
 
-import java.util.Date;
-import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Date;
+import java.util.Properties;
 
 public class SmtpEmail {
     String notificationFile = "src/test/resources/notification.yaml";

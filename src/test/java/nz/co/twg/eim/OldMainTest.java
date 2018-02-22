@@ -1,17 +1,6 @@
 package nz.co.twg.eim;
 
-import com.google.common.io.Files;
-import junit.framework.*;
-import nz.co.twg.eim.sched.CronTriggerClass;
-import org.junit.Test;
-import org.yaml.snakeyaml.Yaml;
-
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
+import junit.framework.TestCase;
 
 public class OldMainTest extends TestCase{
 /*

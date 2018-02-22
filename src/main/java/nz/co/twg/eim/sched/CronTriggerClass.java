@@ -1,12 +1,6 @@
 package nz.co.twg.eim.sched;
+
 import nz.co.twg.eim.dao.SchedulerInterface;
-import org.quartz.CronScheduleBuilder;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
-import org.quartz.impl.StdSchedulerFactory;
 
 public class CronTriggerClass implements SchedulerInterface {
 

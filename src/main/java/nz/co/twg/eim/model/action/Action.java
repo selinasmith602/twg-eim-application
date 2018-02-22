@@ -1,7 +1,7 @@
 package nz.co.twg.eim.model.action;
 
-import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.EimObject;
+import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.notification.Notification;
 
 import java.util.List;

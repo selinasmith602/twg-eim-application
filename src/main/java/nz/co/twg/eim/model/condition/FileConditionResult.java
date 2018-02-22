@@ -1,7 +1,5 @@
 package nz.co.twg.eim.model.condition;
 
-import nz.co.twg.eim.model.condition.ConditionResult;
-
 import java.io.File;
 import java.util.List;
 

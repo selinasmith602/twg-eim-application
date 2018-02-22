@@ -1,15 +1,10 @@
 package nz.co.twg.eim;
 
-import org.quartz.Job;
-import org.quartz.core.QuartzScheduler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.*;
 
 
 @EnableAutoConfiguration

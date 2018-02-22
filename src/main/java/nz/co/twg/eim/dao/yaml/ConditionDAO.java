@@ -1,10 +1,8 @@
 package nz.co.twg.eim.dao.yaml;
 
-import nz.co.twg.eim.MonitoringApplication;
 import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.condition.FileCondition;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;

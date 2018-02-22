@@ -1,14 +1,11 @@
 package nz.co.twg.eim.dao.yaml;
 
-import nz.co.twg.eim.MonitoringApplication;
 import nz.co.twg.eim.dao.DAO;
 import nz.co.twg.eim.model.EimObject;
-import nz.co.twg.eim.model.condition.Condition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;

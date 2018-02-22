@@ -1,19 +1,14 @@
 package nz.co.twg.eim.dao.yaml;
 
-import nz.co.twg.eim.MonitoringApplication;
 import nz.co.twg.eim.model.action.Action;
 import nz.co.twg.eim.model.action.StandardAction;
 import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.notification.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
