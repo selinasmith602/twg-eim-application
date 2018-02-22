@@ -1,15 +1,15 @@
 ---
 Action1:
-    condition:
+    conditions:
       - Condition1
       - Condition2
-    notification:
+    notifications:
       - Notification1
     schedule: "0 0/5 * * * ?"
 ---
 Action2:
-    condition:
+    conditions:
       - Condition6
-    notification:
+    notifications:
       - Notification1
     schedule: "0 2/5 * * * ?"

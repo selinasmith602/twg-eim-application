@@ -1,14 +1,17 @@
 package nz.co.twg.eim.dao.yaml;
 
-import nz.co.twg.eim.MonitoringApplication;
-import nz.co.twg.eim.model.notification.FileNotification;
+import nz.co.twg.eim.model.notification.EmailNotification;
 import nz.co.twg.eim.model.notification.Notification;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
+@Component
 public class NotificationDAO extends YamlDAO<Notification>{
 
-    public NotificationDAO(String yamlFile) {
+    public NotificationDAO(@Value("${yaml.notifications.source}") String yamlFile) throws FileNotFoundException {
         super(yamlFile);
     }
 
@@ -18,10 +21,10 @@ public class NotificationDAO extends YamlDAO<Notification>{
         Map<String, ?> notifyValues = (Map<String, ?>)m.values().iterator().next();
         try {
             if ("email".equals(notifyValues.get("type"))) {
-                return new FileNotification(id ,(String)notifyValues.get("toEmail"),(String)notifyValues.get("emailSubject"),(String)notifyValues.get("emailBody"));
+                return new EmailNotification(id, (String)notifyValues.get("fromEmail"), (String)notifyValues.get("toEmail"), (String)notifyValues.get("emailSubject"), (String)notifyValues.get("emailBody"));
             }
         } catch (Exception e) {
-            MonitoringApplication.LOG.error(id + " has invalid configuration");
+            log.error(id + " has invalid configuration");
         }
         return null;
     }

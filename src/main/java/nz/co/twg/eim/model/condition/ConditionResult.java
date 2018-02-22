@@ -4,4 +4,5 @@ public interface ConditionResult<T> {
     T getPayload();
     boolean shouldFire();
     String toMessage();
+    Condition<T> getCondition();
 }

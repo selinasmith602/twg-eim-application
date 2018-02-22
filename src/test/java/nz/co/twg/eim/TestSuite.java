@@ -1,38 +1,32 @@
 package nz.co.twg.eim;
 
-import nz.co.twg.eim.model.condition.Condition;
-import nz.co.twg.eim.model.notification.FileNotification;
 import org.junit.Test;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.boot.test.context.SpringBootTest;
 import nz.co.twg.eim.dao.yaml.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.io.FileNotFoundException;
 
 @SpringBootTest
 public class TestSuite {
     String conditionFile = "src/test/resources/condition.yaml";
     String notificationFile = "src/test/resources/notification.yaml";
     String actionFile = "src/test/resources/conditionAction.yaml";
-
     @Test
-    public void ListConditions() {
+    public void ListConditions() throws FileNotFoundException {
         ConditionDAO d = new ConditionDAO(conditionFile);
         System.out.println(d.get("Condition1").getId());
     }
 
     @Test
-    public void ListNotifications() {
+    public void ListNotifications() throws FileNotFoundException {
         NotificationDAO d = new NotificationDAO(notificationFile);
         System.out.println(d.get("Notification1").getId());
     }
 
     @Test
-    public void ListActions(){
+    public void ListActions() throws FileNotFoundException {
         ActionDAO d = new ActionDAO(actionFile);
         try {
             d.get("Action1").execute();
@@ -48,7 +42,7 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateReadNotification() {
+    public void ValidateReadNotification() throws FileNotFoundException {
         NotificationDAO d = new NotificationDAO(notificationFile);
         String testNotification = "Notification1";
         try {
@@ -61,7 +55,9 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateReadNotification1() {
+    public void ValidateReadNotification1() throws FileNotFoundException {
+
+
         NotificationDAO d = new NotificationDAO(notificationFile);
         String testNotification = "Notification6";
         try {
@@ -74,7 +70,7 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateReadCondition() {
+    public void ValidateReadCondition() throws FileNotFoundException {
         ConditionDAO d = new ConditionDAO(conditionFile);
         String testCondition = "Condition1";
         try {
@@ -87,7 +83,7 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateReadCondition1() {
+    public void ValidateReadCondition1() throws FileNotFoundException {
         ConditionDAO d = new ConditionDAO(conditionFile);
         String testCondition = "Condition6";
         try {
@@ -100,7 +96,7 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateReadAction() {
+    public void ValidateReadAction() throws FileNotFoundException {
         ActionDAO d = new ActionDAO(actionFile);
         String testAction = "Action1";
         try {
@@ -113,7 +109,7 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateReadAction1() {
+    public void ValidateReadAction1() throws FileNotFoundException {
         ActionDAO d = new ActionDAO(actionFile);
         String testAction = "Action6";
         try {
@@ -126,7 +122,7 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateNumberOfCondAction() {
+    public void ValidateNumberOfCondAction() throws FileNotFoundException {
         ActionDAO d = new ActionDAO(actionFile);
         String testAction = "Action1";
         assertEquals(d.get(testAction).getConditions().isEmpty(), false);
@@ -134,7 +130,7 @@ public class TestSuite {
     }
 
     @Test
-    public void ValidateNumberOfNotiAction() {
+    public void ValidateNumberOfNotiAction() throws FileNotFoundException {
         ActionDAO d = new ActionDAO(actionFile);
         String testAction = "Action1";
         assertEquals(d.get(testAction).getNotifications().isEmpty(), false);

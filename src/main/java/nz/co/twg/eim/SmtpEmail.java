@@ -12,7 +12,7 @@ import javax.mail.internet.MimeMessage;
 
 public class SmtpEmail {
     String notificationFile = "src/test/resources/notification.yaml";
-    NotificationDAO d = new NotificationDAO(notificationFile);
+    NotificationDAO d;
     private static String senderEmail = "DONOTREPLY@thewarehouse.co.nz";
     private static String userEmail = "wan.loke@thewarehouse.co.nz";
     private static String subjectLine = "Testing testing";
@@ -44,10 +44,10 @@ public class SmtpEmail {
             System.out.println("Message is ready");
             Transport.send(msg);
 
-            MonitoringApplication.LOG.info("Email Sent Successfully!!");
+            System.out.println("Email Sent Successfully!!");
 
         } catch (Exception e) {
-            MonitoringApplication.LOG.info("Email failed to send.");
+            System.err.println("Email failed to send.");
             e.printStackTrace();
         }
     }

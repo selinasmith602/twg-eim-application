@@ -10,33 +10,38 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-abstract class  YamlDAO<T extends EimObject> implements DAO<T> {
-    public static final Logger LOG = LoggerFactory.getLogger(YamlDAO.class);
-    private final String yamlFile;
+abstract class YamlDAO<T extends EimObject> implements DAO<T> {
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final InputStream yamlInputStream;
+
     private Map<String, T> myList;
 
-    public YamlDAO(String yamlFile) {
-        this.yamlFile = yamlFile;
+    public YamlDAO(String yamlFile) throws FileNotFoundException {
+        this(new FileInputStream(yamlFile));
+    }
+
+    public YamlDAO(InputStream yamlInputStream) {
+        this.yamlInputStream = yamlInputStream;
     }
 
     @Override
     public Collection<T> list() {
-        if(myList == null){
+        if (myList == null) {
             myList = new LinkedHashMap<>();
             Yaml yamlObject = new Yaml();
             try {
-                InputStream input = new FileInputStream(new File(yamlFile));
-                for (Object data : yamlObject.loadAll(input)) {
+                for (Object data : yamlObject.loadAll(yamlInputStream)) {
                     T convert = convert((Map<String, ?>) data);
-                    if (!myList.containsKey(convert.getId())){
+                    if (!myList.containsKey(convert.getId())) {
                         myList.put(convert.getId(), convert);
                     } else {
-                        MonitoringApplication.LOG.error(convert.getId() + " already exists");
+                        log.error(convert.getId() + " already exists");
                     }
                 }
             } catch (Exception e) {
@@ -46,11 +51,11 @@ abstract class  YamlDAO<T extends EimObject> implements DAO<T> {
         return myList.values();
     }
 
-    abstract protected T convert (Map<String, ?> m);
+    abstract protected T convert(Map<String, ?> m);
 
     @Override
     public T get(String id) {
-        if (myList == null){
+        if (myList == null) {
             list();
         }
         return myList.get(id);

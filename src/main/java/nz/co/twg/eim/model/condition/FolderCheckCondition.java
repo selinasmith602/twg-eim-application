@@ -17,7 +17,7 @@ public abstract class FolderCheckCondition implements Condition<List<File>> {
     public ConditionResult<List<File>> check(Action checkingAction) {
         List<File> result = new ArrayList<>();
 
-        return new FileConditionResult(result,!result.isEmpty());
+        return new FileConditionResult(this, result,!result.isEmpty());
     }
 
     @Override
