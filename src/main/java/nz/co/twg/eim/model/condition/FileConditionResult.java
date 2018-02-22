@@ -32,6 +32,5 @@ public class FileConditionResult implements ConditionResult<List<File>> {
         return payload.stream() //
                 .map(file -> file.getAbsolutePath()) //
                 .reduce("", (fn, acc) -> acc + "\n" + fn);
-
     }
 }

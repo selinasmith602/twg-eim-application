@@ -7,7 +7,7 @@ import nz.co.twg.eim.model.notification.Notification;
 import java.util.List;
 
 public interface Action extends EimObject {
-    List<Condition> getConditions();
+    List<Condition<?>> getConditions();
 
     List<Notification> getNotifications();
 

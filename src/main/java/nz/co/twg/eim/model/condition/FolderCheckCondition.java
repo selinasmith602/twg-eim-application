@@ -5,24 +5,19 @@ import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.condition.ConditionResult;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.PrimitiveIterator;
 
 public abstract class FolderCheckCondition implements Condition<List<File>> {
+
+    private String location;
+
     public ConditionResult<List<File>> check(Action checkingAction) {
-        return new ConditionResult<List<File>>() {
-            public List<File> getPayload() {
-                return null;
-            }
+        List<File> result = new ArrayList<>();
 
-            public boolean shouldFire() {
-                return false;
-            }
-
-            @Override
-            public String toMessage() {
-                return null;
-            }
-        };
+        return new FileConditionResult(result,!result.isEmpty());
     }
 
     @Override
