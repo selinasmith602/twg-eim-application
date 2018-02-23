@@ -1,0 +1,14 @@
+---
+Notification1:
+  type: "email"
+  toEmail: "wan.loke@thewarehouse.co.nz"
+  fromEmail: "DONOTREPLY@thewarehouse.co.nz"
+  emailSubject: "Testing Email for Monitoring App action ${actionId}"
+  emailBody: "Hi there please check the action ${actionId} has sent this: ${conditionResults}"
+---
+Notification2:
+  type: "email"
+  toEmail: "abc@domain.co.nz"
+  fromEmail: "DONOTREPLY@thewarehouse.co.nz"
+  emailSubject: "Testing Email for Monitoring App"
+  emailBody: "Hi there please check the file..."
