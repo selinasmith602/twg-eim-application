@@ -18,10 +18,10 @@ import java.util.stream.Stream;
 public class ActionDAO extends YamlDAO<Action> {
 
     @Autowired
-    NotificationDAO notificationDAO;
+    protected NotificationDAO notificationDAO;
 
     @Autowired
-    ConditionDAO conditionDAO;
+    protected ConditionDAO conditionDAO;
 
 
     public ActionDAO(@Value("${yaml.actions.source}") String yamlFile) throws FileNotFoundException {
@@ -33,9 +33,9 @@ public class ActionDAO extends YamlDAO<Action> {
         String id = m.keySet().iterator().next();
         Map<String, ?> actionValues = (Map<String, ?>)m.values().iterator().next();
         Stream<String> conditionStream = ((List<String>) actionValues.get("conditions")).stream();
-        List<Condition<?>> conditionList = conditionStream.map(conditionDAO::get).collect(Collectors.toList());
+        List<Condition<?>> conditionList = conditionStream.map(conditionDAO::get).filter(c -> c != null).collect(Collectors.toList());
         Stream<String> notificationStream = ((List<String>) actionValues.get("notifications")).stream();
-        List<Notification> notificationList = notificationStream.map(notificationDAO::get).collect(Collectors.toList());
+        List<Notification> notificationList = notificationStream.map(notificationDAO::get).filter(c -> c != null).collect(Collectors.toList());
         String schedule = (String) actionValues.get("schedule");
 
         try {

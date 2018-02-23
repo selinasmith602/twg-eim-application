@@ -1,8 +1,6 @@
 package nz.co.twg.eim.sched;
 
-import nz.co.twg.eim.dao.SchedulerInterface;
-
-public class CronTriggerClass implements SchedulerInterface {
+public class CronTriggerClass {
 
     public void scheduler(String cronNum) throws Exception {
         /*//cronNum ="0 24 14 * * ?";//"0/5 * * * * ?" ; //0 0/5 14,15 * * ?

@@ -3,6 +3,8 @@ package nz.co.twg.eim.model.action;
 import nz.co.twg.eim.model.condition.Condition;
 import nz.co.twg.eim.model.condition.ConditionResult;
 import nz.co.twg.eim.model.notification.Notification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +12,7 @@ import java.util.stream.Stream;
 
 public class StandardAction implements Action {
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private String id;
     private List<Condition<?>> conditions;
     private List<Notification> notifications;
@@ -37,39 +40,38 @@ public class StandardAction implements Action {
     }
 
     public void execute() throws ActionExecutionException {
-        /*MonitoringApplication.LOG.info("executing ");
-        Stream<Condition> b = getConditions().stream();
-        System.out.println(b);
-        System.out.println(getConditions());
-        for (Condition f:getConditions()) {
-            System.out.println(getConditions().iterator().next().getId());
-        };
-        System.out.println(getConditions().iterator().next().getMaxAge());
-
-        System.out.println("retrieved");*/
 
 
-
-
-
+        log.info("starting action " + getId());
        Stream<Condition<?>> s = getConditions().stream();
 
         Stream<ConditionResult<?>> results = s.map(c -> c.check(this));
-        if(results.allMatch(c -> c.shouldFire())) {
-            List<ConditionResult<?>> resultList = results.collect(Collectors.toList());
-            Stream<Exception> exceptions = getNotifications() //
+        List<ConditionResult<?>> resultList = results.collect(Collectors.toList());
+        if(resultList.stream().allMatch(c -> c.shouldFire())) {
+            log.info("conditions met, firing notification");
+
+            List<Throwable> exceptions = getNotifications() //
                     .stream() //
                     .map(n -> n.doNotify(resultList, this)) //
-                    .filter(nr -> !nr.isNotified()).map(nr -> nr.getNotificationException());
-            if(exceptions.findFirst().isPresent()) {
-                throw new ActionExecutionException("Could not fire action " + getId(), exceptions.collect(Collectors.toList()));
+                    .filter(nr -> !nr.isNotified()).map(nr -> nr.getNotificationException()).collect(Collectors.toList());
+            if(!exceptions.isEmpty()) {
+                exceptions.stream().forEach(t -> log.error("something wrong", t));
+                throw new ActionExecutionException("Could not fire action " + getId(), exceptions);
             }
+        } else {
+            log.info("conditions not met.");
         }
+        log.info("exiting action " + getId());
 
     }
 
     @Override
     public String toString() {
         return "[" + getClass().getName() + "[conditions:" + conditions + ", notifications: " + notifications + ", cron scheduled: " + cronConfig + "]]";
+    }
+
+    @Override
+    public String getCronConfig() {
+        return cronConfig;
     }
 }

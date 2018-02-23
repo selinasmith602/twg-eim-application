@@ -35,10 +35,10 @@ abstract class YamlDAO<T extends EimObject> implements DAO<T> {
             try {
                 for (Object data : yamlObject.loadAll(yamlInputStream)) {
                     T convert = convert((Map<String, ?>) data);
-                    if (!myList.containsKey(convert.getId())) {
+                    if (convert != null && !myList.containsKey(convert.getId())) {
                         myList.put(convert.getId(), convert);
                     } else {
-                        log.error(convert.getId() + " already exists");
+                        log.error(convert + " already exists or result is null");
                     }
                 }
             } catch (Exception e) {

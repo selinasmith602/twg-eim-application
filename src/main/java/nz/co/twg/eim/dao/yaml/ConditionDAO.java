@@ -22,10 +22,10 @@ public class ConditionDAO extends YamlDAO<Condition<?>> {
         Map<String, ?> condValues = (Map<String, ?>)m.values().iterator().next();
         try {
             if ("file".equals(condValues.get("type"))) {
-               return new FileCondition(id ,(String)condValues.get("directory"), Optional.ofNullable((Integer)condValues.get("maxAge")) , Optional.ofNullable((Integer)condValues.get("maxFiles")));
+               return new FileCondition(id ,(String)condValues.get("directory"), Optional.ofNullable(Long.valueOf(((Integer)condValues.get("maxAge")) * 1000L)) , Optional.ofNullable((Integer)condValues.get("maxFiles")));
             }
         } catch (Exception e){
-           log.error(id + " has invalid configuration");
+           log.error(id + " has invalid configuration", e);
         }
     return null;
     }

@@ -2,7 +2,7 @@ package nz.co.twg.eim;
 
 import junit.framework.TestCase;
 
-public class OldMainTest extends TestCase{
+public class OldMainTest extends TestCase {
 /*
     public String testGetDirectory(){
         /*Map<String,String> propertiesMap;

@@ -1,6 +1,7 @@
 package nz.co.twg.eim;
 
 import nz.co.twg.eim.dao.yaml.ActionDAO;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,6 @@ public class TestYAML {
     public void createAction() {
         System.out.println("Test:" + test);
         System.out.println("Test action = " + actionDAO.list());
+        Assert.assertFalse(actionDAO.list().isEmpty());
     }
 }

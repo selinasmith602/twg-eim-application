@@ -10,7 +10,7 @@ public interface Condition<T> extends EimObject {
 
     String getDirectory();
 
-    Optional<Integer> getMaxAge();
+    Optional<Long> getMaxAge();
 
     Optional<Integer> getFileCount();
 }

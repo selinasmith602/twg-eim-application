@@ -4,6 +4,7 @@ import com.google.common.io.Files;
 import nz.co.twg.eim.dao.yaml.ActionDAO;
 import nz.co.twg.eim.dao.yaml.ConditionDAO;
 import nz.co.twg.eim.dao.yaml.NotificationDAO;
+import nz.co.twg.eim.model.condition.Condition;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -133,18 +134,21 @@ public class TestSuite {
     public void ValidateReadCondition1() throws FileNotFoundException {
         ConditionDAO d = new ConditionDAO(conditionFile);
         String testCondition = "Condition6";
+        Condition<?> condition = d.get(testCondition);
         try {
-            if (!d.get(testCondition).getId().isEmpty()) {
+            if (!condition.getId().isEmpty()) {
                 assertEquals(d.get(testCondition).getId(), testCondition);
             }
         } catch (Exception e) {
-            fail("Condition " + testCondition + " couldnt be found in the source conditions");
+            if (condition != null) {
+                fail("Condition " + testCondition + " couldnt be found in the source conditions");
+            }
         }
     }
 
     @Test
     public void ValidateReadAction() throws FileNotFoundException {
-        ActionDAO d = new ActionDAO(actionFile);
+        ActionDAO d = getActionDAO();
         String testAction = "Action1";
         try {
             if (!d.get(testAction).getId().isEmpty()) {
@@ -157,7 +161,8 @@ public class TestSuite {
 
     @Test
     public void ValidateReadAction1() throws FileNotFoundException {
-        ActionDAO d = new ActionDAO(actionFile);
+
+        ActionDAO d = getActionDAO();
         String testAction = "Action6";
         try {
             if (!d.get(testAction).getId().isEmpty()) {
@@ -168,9 +173,18 @@ public class TestSuite {
         }
     }
 
+    private ActionDAO getActionDAO() throws FileNotFoundException {
+        return new ActionDAO(actionFile) {
+            {
+                this.conditionDAO = new ConditionDAO(conditionFile);
+                this.notificationDAO = new NotificationDAO(notificationFile);
+            }
+        };
+    }
+
     @Test
     public void ValidateNumberOfCondAction() throws FileNotFoundException {
-        ActionDAO d = new ActionDAO(actionFile);
+        ActionDAO d = getActionDAO();
         String testAction = "Action1";
         assertEquals(d.get(testAction).getConditions().isEmpty(), false);
 
@@ -178,7 +192,7 @@ public class TestSuite {
 
     @Test
     public void ValidateNumberOfNotiAction() throws FileNotFoundException {
-        ActionDAO d = new ActionDAO(actionFile);
+        ActionDAO d = getActionDAO();
         String testAction = "Action1";
         assertEquals(d.get(testAction).getNotifications().isEmpty(), false);
     }

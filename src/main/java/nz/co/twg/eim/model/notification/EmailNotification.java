@@ -22,23 +22,23 @@ public class EmailNotification implements Notification {
     private final String subject;
     private final String emailBody;
 
-    @Value("${email.host}")
     private String smtpConnectionString;
     private Session session;
 
-    public EmailNotification(String id, String fromEmail, String toEmail, String subject, String emailBody) {
+    public EmailNotification(String id, String fromEmail, String toEmail, String subject, String emailBody, String smtpConnectionString) {
         this.id = id;
         this.fromEmail = fromEmail;
         this.toEmail = toEmail;
         this.subject = subject;
         this.emailBody = emailBody;
+        this.smtpConnectionString = smtpConnectionString;
     }
 
     @Override
     public NotificationResult doNotify(List<ConditionResult<?>> conditionResults, Action action) {
         try {
             MimeMessage message = createMessage();
-                    message.setSubject(subject.replace("${actonId}", action.getId()));
+                    message.setSubject(subject.replace("${actionId}", action.getId()));
                     message.setText(emailBody.replace("${actionId}", action.getId()).replace(
                             "${conditionResults}",
                             conditionResults.stream()
@@ -68,7 +68,7 @@ public class EmailNotification implements Notification {
     }
 
     private Session getSession() {
-        if(session != null) {
+        if(session == null) {
             Properties props = System.getProperties();
             props.put("mail.smtp.host", smtpConnectionString);
             session = Session.getInstance(props, null);
